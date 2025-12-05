@@ -1,0 +1,6 @@
+.vscode
+.env
+
+mlir_venv
+build
+polygeist
