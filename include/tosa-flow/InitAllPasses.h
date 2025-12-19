@@ -15,8 +15,8 @@ namespace tosa_flow {
 
 
 inline void registerAllPasses() {
+  mlir::tosa_flow::registerTosaFlowPasses();
   mlir::registerAllPasses();
-  ::tosa_flow::registerTosaFlowPasses();
 }
 
 } // namespace tosa_flow

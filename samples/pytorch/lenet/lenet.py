@@ -2,6 +2,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch_mlir
+import numpy as np
+
+# Fix seeds so weight init and outputs are repeatable.
+torch.manual_seed(0)
+np.random.seed(0)
 
 class LeNet(nn.Module):
     def __init__(self):
@@ -48,8 +53,19 @@ model.eval()
 example_input = torch.ones(1, 1, 32, 32)
 mlir_module = torch_mlir.compile(model, example_input, output_type="tosa")
 
-# Write to file
 with open("lenet_tosa.mlir", "w") as f:
     f.write(str(mlir_module))
 
 print("✔ MLIR written to lenet_tosa.mlir")
+
+# example input
+x = torch.ones(1, 1, 32, 32, dtype=torch.float32)
+
+with torch.no_grad():
+    y = model(x)  # [1,10]
+
+torch.save(model.state_dict(), "lenet_state_dict.pt")
+x.cpu().numpy().astype(np.float32).tofile("input_nchw_f32.bin")
+y.cpu().numpy().astype(np.float32).tofile("output_ref_f32.bin")
+
+print("PyTorch output:", y)

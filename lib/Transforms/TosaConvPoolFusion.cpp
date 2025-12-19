@@ -9,7 +9,7 @@
 using namespace mlir;
 namespace tosa = mlir::tosa;
 
-namespace tosa_flow {
+namespace mlir::tosa_flow {
 namespace {
 
 ///   %conv  = tosa.conv2d(%input, %weight, %bias, ...)
@@ -130,4 +130,4 @@ std::unique_ptr<Pass> createTosaConvPoolFusionPass() {
   return std::make_unique<TosaConvPoolFusionPass>();
 }
 
-} // namespace tosa_flow
+} // namespace mlir::tosa_flow

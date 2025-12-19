@@ -21,6 +21,7 @@
 #include "mlir/Dialect/Tensor/IR/Tensor.h"
 #include "mlir/Dialect/Tosa/IR/TosaOps.h"
 #include "mlir/Dialect/Vector/IR/VectorOps.h"
+#include "tosa-flow/Dialect/Chiplet/Chiplet.h"
 
 namespace mlir {
 namespace tosa_flow {
@@ -40,6 +41,7 @@ inline void registerAllDialects(mlir::DialectRegistry &registry) {
     mlir::arith::ArithDialect,
     mlir::vector::VectorDialect,
     mlir::scf::SCFDialect,
+    mlir::tosa_flow::chiplet::ChipletDialect,
     mlir::LLVM::LLVMDialect,
     mlir::DLTIDialect,
     mlir::ml_program::MLProgramDialect
